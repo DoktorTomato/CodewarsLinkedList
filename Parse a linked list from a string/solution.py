@@ -20,7 +20,7 @@ def linked_list_from_string(s):
     '''
     if s == "None":
         return
-    data = s.split(' -> ')[0]
+    data = s.split(' -> ')[0].strip()
     if data.isnumeric():
         data = int(data)
     elif data == 'None':
@@ -28,7 +28,7 @@ def linked_list_from_string(s):
     if len(s.split(' -> ')) > 1:
         next_data = linked_list_from_string(' -> '.join(s.split(' -> ')[1:]))
     else:
-        next_data = s.split(' -> ')[1]
+        next_data = s.split(' -> ')[1].strip()
         if next_data.isnumeric():
             next_data = int(data)
         elif next_data == 'None':
