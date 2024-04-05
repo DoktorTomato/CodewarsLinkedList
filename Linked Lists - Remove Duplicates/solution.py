@@ -25,11 +25,27 @@ def remove_duplicates(head):
         return None
     if head.next is None:
         return head
-    if head.next.data != head.data:
-        return Node(head.data, remove_duplicates(head.next))
-    try:
-        while head.next.data == head.data:
-            head.next = head.next.next
-        return Node(head.data, remove_duplicates(head.next))
-    except AttributeError:
-        return head
+    res = Node(None)
+    end_point = res
+    cur = head.data
+    nxt = head.next
+    oncemore = iter([True, False])
+    while nxt is not None or next(oncemore):
+        if nxt is not None and cur == nxt.data:
+            nxt = nxt.next
+        else:
+            if res.data is None:
+                res.data = cur
+                if nxt is not None:
+                    cur = nxt.data
+                    nxt = nxt.next
+            else:
+                end_point.next = Node(cur)
+                end_point = end_point.next
+                if nxt is not None:
+                    cur = nxt.data
+                    nxt = nxt.next
+    return res
+
+if __name__ == '__main__':
+    assert Node(1, Node(2, Node(3, Node(4)))) == remove_duplicates(Node(1, Node(2, Node(3, Node(4)))))
